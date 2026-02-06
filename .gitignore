@@ -1,7 +1,4 @@
+objdir/*
 LIMIT
-catalogues/
-objdir/
-maps/
-halo_density.c
-noise.ipynb
-plot.ipynb
+maps/*
+*.bin
