@@ -1,4 +1,4 @@
-objdir/*
+objdir
 LIMIT
-maps/*
+maps
 *.bin
