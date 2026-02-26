@@ -1,13 +1,13 @@
 # LIMiT (Line Intensity Mapping Tool)
-This tool simulates galaxy line intensity maps of the HI 21-cm line, CO rotational lines and the CII fine structure line from a given halo/galaxy catalogue.
+This tool simulates galaxy mass density maps and line intensity maps of the HI 21-cm line, CO rotational lines and the CII fine structure line from a given halo/galaxy catalogue.
 
 ## Prerequisites
 The "g++" compiler is required to compile the code. Any other compiler can be used, requiring the makefile to be altered accordingly.
 
 ## Format of Halo catalogs
 
-The halo catalogues should be in the form of a directory that holds separate files for the following quantities of each halo:\
-**Common for all lines:** Mass.bin (halo mass in $10^{10}h^{-1}M_\odot$ units), Pos_x.bin, Pos_y.bin, Pos_z.bin (components of halo position in grid units), Vel_z.bin (component of the centre of mass peculiar velocity along the line of sight in km/s), Metallicity.bin (gas metallicity in $Z_\odot$ units)\
+The halo catalogues should be in the form of a directory that holds separate files for the following quantities of each halo in the float32 format:\
+**Common for all lines and density map:** Mass.bin (halo mass in $10^{10}h^{-1}M_\odot$ units), Pos_x.bin, Pos_y.bin, Pos_z.bin (components of halo position in grid units), Vel_z.bin (component of the centre of mass peculiar velocity along the line of sight in km/s), Metallicity.bin (gas metallicity in $Z_\odot$ units)\
 **21-cm line:** H_mass.bin (total hydrogen mass (all phases) in $10^{10}h^{-1}M_\odot$ units)\
 **CII and CO lines:** SFR.bin (star-formation rate in $M_\odot/{\rm yr}$)\
 Additionally, there should be a file named "num_halos.txt", which should contain the number of halos in the files as a single integer.
@@ -20,21 +20,23 @@ The Hydrogen masses are gridded into an HI density map, which is scaled to a bri
 The "src/process_buffered.cc" file needs to be modified to switch between models for a given line.
 
 ## How to use
-Intensity mapping tools for each line are given in different directories. Go to the corresponding directory and run
+Run
 ```
 $ make
 ```
-This compiles the code and generates an executable "LIMIT". This executable needs two text files as inputs to function. The first one (e.g. "param.txt") contains the necessary parameters for the simulation. The second file (e.g. "paths.txt") should contain the paths for the halo catalogues, redshifts and names of the output files arranged in separate columns in the following format:
+This compiles the code and generates an executable "LIMiT". This executable needs two text files as inputs to function. The first one (e.g. "param.txt") contains the necessary parameters for the simulation. The second file (e.g. "paths.txt") should contain the paths for the halo catalogues, redshifts and names of the output files arranged in separate columns in the following format:
 ```
 subhalocat-z3.010 3.010 CO_map_z3.010.bin
 subhalocat-z2.000 2.000 CO_map_z2.000.bin
 subhalocat-z1.500 1.500 CO_map_z1.500.bin
 ```
-Here, the first column represents the directory that holds the halo catalogues. The second column represents the redshift, and the third one represents the output binary files that contain the intensity mapping cube. Example parameter and path files are given in each directory. To run the executable, use the command
+Here, the first column represents the directory that holds the halo catalogues. The second column represents the redshift, and the third one represents the output binary files that contain the intensity mapping cube. Example parameter and path files are given. To run the executable, use the command
 ```
-$ ./LIMIT param.txt paths.txt
+$ ./LIMiT param.txt paths.txt
 ```
 The generated map can be viewed using "view_map.ipynb".
 
 ## Acknowledgements
-If you are using this tool, please acknowledge [Murmu, Majumdar and Datta, 2021, MNRAS 507, 2500–2509](https://doi.org/10.1093/mnras/stab2347)
+If you are using this tool, please acknowledge [Murmu, Majumdar and Datta, 2021](https://doi.org/10.1093/mnras/stab2347) and [Dosibhatla et al., 2025](https://doi.org/10.48550/arXiv.2508.09112).
+
+<!-- [Murmu, Majumdar and Datta, 2021, MNRAS 507, 2500–2509] -->
